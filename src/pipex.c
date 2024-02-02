@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 01:38:18 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/02 23:16:41 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/03 00:39:01 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,12 +352,19 @@ int	ft_set_pipex(int argc, char **argv, char **envp, t_pipex *pipex)
 void	ft_do_cmd(char *cmd, char **path, char **envp)
 {
 	char	**argv;
-	int		send_null[2];
+	int		i;
 
 	argv = ft_get_cmd(cmd, path);
 	if (!argv)
+	{
+		ft_free_until((void **)path, -1);
 		exit(1);
+	}
+	i = 0;
+	while (argv[i])
+		ft_printf(STDERR_FILENO, "%s\n", argv[i ++]);
 	execve(argv[0], argv, envp);
+	ft_free_until((void **)path, -1);
 	write(STDERR_FILENO, ERR_EXEC, strlen(ERR_EXEC));
 	ft_free_until((void **)argv, -1);
 	exit(1);
@@ -384,10 +391,12 @@ void	ft_do_pipe(char *cmd, char **path, char **envp)
 	{
 		close(pipes[0]);
 		dup2(pipes[1], STDOUT_FILENO);
+		close(pipes[1]);
 		ft_do_cmd(cmd, path, envp);
 	}
 	close(pipes[1]);
 	dup2(pipes[0], STDIN_FILENO);
+	close(pipes[0]);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -444,9 +453,12 @@ int	main(int argc, char **argv, char **envp)
 		return (write(STDERR_FILENO, ERR_FORK, 20), 1);
 	if (!last)
 	 	ft_do_cmd(argv[argc - 2], pipex.path, envp);
+	if (fd1 >= 0)
+		close(fd1);
 	waitpid(last, &status, 0);
 	while (wait(NULL) != -1)
 		;
 	ft_free_until((void **)pipex.path, -1);
+	close(fd2);
 	return (WEXITSTATUS(status));
 }
