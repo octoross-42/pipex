@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl.h                                              :+:      :+:    :+:   */
+/*   printf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 15:03:48 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/01 05:27:55 by octoross         ###   ########.fr       */
+/*   Created: 2023/05/09 16:18:02 by octoross          #+#    #+#             */
+/*   Updated: 2024/02/02 22:58:34 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#ifndef PRINTF_H
 
-# define GET_NEXT_LINE_H
+# define PRINTF_H
 
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
+# include <limits.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4096
-# endif
+size_t	ft_strlen(char *s);
+int		ft_strcmp(const char *s1, char *s2);
+int		ft_putnbr(int fd, long long n, int uppercase, unsigned long base, int p);
+int		ft_putstr(int fd, char *s);
+int		ft_putchar(int fd, char c);
 
-typedef struct s_list
-{
-	int				size;
-	char			*content;
-	int				eof;
-	int				eol;
-	int				len;
-	int				start;
-	struct s_list	*next;
-}		t_gnl;
-
-void	ft_clear_leftovers(t_gnl **leftovers);
-void	ft_clean_and_next_lst(t_gnl **line);
-
-char	*get_next_line(int fd);
+int		ft_printf(int fd, const char *format, ...);
 
 #endif

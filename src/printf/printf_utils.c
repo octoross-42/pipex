@@ -1,40 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl.h                                              :+:      :+:    :+:   */
+/*   printf_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 15:03:48 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/02 22:58:06 by octoross         ###   ########.fr       */
+/*   Created: 2023/05/09 16:53:51 by octoross          #+#    #+#             */
+/*   Updated: 2024/02/02 22:58:28 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GNL_H
+#include "printf.h"
 
-# define GNL_H
-
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4096
-# endif
-
-typedef struct s_gnl
+size_t	ft_strlen(char *s)
 {
-	int				size;
-	char			*content;
-	int				eof;
-	int				eol;
-	int				len;
-	int				start;
-	struct s_gnl	*next;
-}		t_gnl;
+	size_t	len;
 
-void	ft_clear_leftovers(t_gnl **leftovers);
-void	ft_clean_and_next_lst(t_gnl **line);
+	if (!s)
+		return (0);
+	len = 0;
+	while (s[len])
+		len ++;
+	return (len);
+}
 
-char	*get_next_line(int fd);
+int	ft_strcmp(const char *s1, char *s2)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+		i ++;
+	return (s1[i] - s2[i]);
+}

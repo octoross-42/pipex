@@ -1,9 +1,12 @@
 NAME = pipex
 
 SRCS = src/pipex.c \
-		src/utils/utils.c \
-		src/utils/gnl.c \
-		src/utils/gnl_utils.c
+		src/split/split.c \
+		src/gnl/gnl.c \
+		src/gnl/gnl_utils.c \
+		src/printf/printf.c \
+		src/printf/puts.c \
+		src/printf/printf_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -22,7 +25,7 @@ $(NAME): $(OBJS)
 clean:
 	rm -f $(OBJS)
 
-flcean: clean
+fclean: clean
 	rm -f $(NAME)
 
-re: flcean all
+re: fclean all

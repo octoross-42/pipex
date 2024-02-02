@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 01:38:43 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/01 05:05:29 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/02 23:18:07 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define PIPEX_H
 
 # include "gnl.h"
+# include "printf.h"
 
 # include <stdio.h>
 # include <sys/wait.h>
@@ -24,7 +25,6 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define ERR_OPEN "Error: access denied to file: %s\n"
 # define ERR_PIPE "Error: pipe failed\n"
 # define ERR_FORK "Error: fork failed\n"
 # define ERR_DUP2 "Error: dup2 failed\n"
@@ -38,12 +38,6 @@
 typedef struct s_pipex
 {
 	int		nbr_cmds;
-	char	**cmds;
-	char	*cmd1;
-	char	*cmd2;
-	char	*file1;
-	char	*file2;
-	int		(*pipes)[2];
 	char	**path;
 	int		here_doc;
 	char	*limiter;
@@ -51,6 +45,5 @@ typedef struct s_pipex
 
 char	**ft_split(char const *s, char c);
 void	ft_free_until(void **tab, int index);
-t_pipex	*ft_get_pipex(char **argv, char **envp);
 
 #endif

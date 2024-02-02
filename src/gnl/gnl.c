@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:33:02 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/01 05:40:53 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/02 23:01:29 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ t_gnl	*ft_read_line(int fd)
 	if (!(line->content))
 		return (free(line), NULL);
 	line->start = 0;
-	printf("on est censes read line : BUFFER_SIZE : %d, fd : %d\n", BUFFER_SIZE, fd);
 	line->len = read(fd, line->content, BUFFER_SIZE);
-	printf("on est censes read line : '%s'\n", line->content);
 	if (line->len <= 0)
 		return (free(line->content), free(line), NULL);
 	i = line->len;
