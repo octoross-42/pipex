@@ -1,7 +1,7 @@
 NAME = pipex
 
-SRCS = src/pipex.c \
-		src/split/split.c \
+SRCS = src/pipexold.c \
+		src/libft/split.c \
 		src/gnl/gnl.c \
 		src/gnl/gnl_utils.c \
 		src/printf/printf.c \
