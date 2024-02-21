@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl.c                                              :+:      :+:    :+:   */
+/*   gnl_here_doc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:33:02 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/02 23:01:29 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:43:05 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,15 @@ char	*ft_lst_to_str(t_gnl **l)
 	return (return_line);
 }
 
-char	*get_next_line(int fd)
+char	*gnl_here_doc(void)
 {
 	static t_gnl	*leftovers = NULL;
 	char			*return_line;
 
-	if (fd < 0 || BUFFER_SIZE < 0)
+	write(1, "heredoc> ", 9);
+	if (BUFFER_SIZE < 0)
 		return (ft_clear_leftovers(&leftovers), NULL);
-	if (ft_read(&leftovers, fd))
+	if (ft_read(&leftovers, 0))
 		return (ft_clear_leftovers(&leftovers), NULL);
 	return_line = ft_lst_to_str(&leftovers);
 	if (!return_line)

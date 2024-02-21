@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl.h                                              :+:      :+:    :+:   */
+/*   strncmp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 15:03:48 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/21 16:43:20 by octoross         ###   ########.fr       */
+/*   Created: 2023/05/03 22:23:10 by octoross          #+#    #+#             */
+/*   Updated: 2024/02/21 19:38:54 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GNL_H
+#include "utils.h"
 
-# define GNL_H
-
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4096
-# endif
-
-typedef struct s_gnl
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int				size;
-	char			*content;
-	int				eof;
-	int				eol;
-	int				len;
-	int				start;
-	struct s_gnl	*next;
-}		t_gnl;
+	size_t	i;
 
-void	ft_clear_leftovers(t_gnl **leftovers);
-void	ft_clean_and_next_lst(t_gnl **line);
-
-char	*gnl_here_doc(void);
-
-#endif
+	if (!s1 || !s2)
+		return (0);
+	i = 0;
+	while (s1[i] && i < n && s1[i] == s2[i])
+		i ++;
+	if (i == n)
+		return (0);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}

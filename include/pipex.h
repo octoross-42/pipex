@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 01:38:43 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/05 21:10:20 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/21 19:40:41 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include "gnl.h"
 # include "printf.h"
+# include "utils.h"
 
 # include <stdio.h>
 # include <sys/wait.h>
@@ -46,7 +47,6 @@ typedef struct s_pipex
 	char	*limiter;
 }				t_pipex;
 
-char	**ft_split(char const *s, char c);
 void	ft_free_until(void **tab, int index);
 
 #endif

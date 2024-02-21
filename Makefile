@@ -1,8 +1,9 @@
 NAME = pipex
 
-SRCS = src/pipexold.c \
-		src/libft/split.c \
-		src/gnl/gnl.c \
+SRCS = src/pipex.c \
+		src/utils/split_argv.c \
+		src/utils/utils.c \
+		src/gnl/gnl_here_doc.c \
 		src/gnl/gnl_utils.c \
 		src/printf/printf.c \
 		src/printf/puts.c \
