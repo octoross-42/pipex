@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 01:38:43 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/21 19:40:41 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:04:19 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,5 @@ typedef struct s_pipex
 	int		fd2;
 	char	*limiter;
 }				t_pipex;
-
-void	ft_free_until(void **tab, int index);
 
 #endif

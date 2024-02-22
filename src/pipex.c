@@ -6,28 +6,11 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 01:38:18 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/21 19:37:53 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:10:43 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	ft_free_until(void **tab, int index)
-{
-	int		i;
-	char	**strs;
-
-	i = 0;
-	while (i < index)
-		free(tab[i ++]);
-	if (index < 0)
-	{
-		strs = (char **)tab;
-		while (strs[i])
-			free(strs[i ++]);
-	}
-	free(tab);
-}
 
 char	*ft_path_of(char const *path, char const *cmd)
 {
@@ -68,6 +51,11 @@ char	**ft_get_cmd(char *cmd, char **paths)
 	char	*path;
 
 	argv = ft_split_argv(cmd);
+	int	j = 0;
+	while (argv[j])
+	{
+		ft_printf(STDERR_FILENO, "cmd %d %s\n", j ++, argv[j]);
+	}
 	if (!argv)
 		return (write(STDERR_FILENO, ERR_MALLOC, 22), free(path), NULL);
 	if (access(argv[0], F_OK | X_OK) == 0)

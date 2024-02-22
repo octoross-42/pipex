@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:23:10 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/21 19:38:54 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:02:11 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,21 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (i == n)
 		return (0);
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+void	ft_free_until(void **tab, int index)
+{
+	int		i;
+	char	**strs;
+
+	i = 0;
+	while (i < index)
+		free(tab[i ++]);
+	if (index < 0)
+	{
+		strs = (char **)tab;
+		while (strs[i])
+			free(strs[i ++]);
+	}
+	free(tab);
 }

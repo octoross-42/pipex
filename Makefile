@@ -2,6 +2,7 @@ NAME = pipex
 
 SRCS = src/pipex.c \
 		src/utils/split_argv.c \
+		src/utils/split.c \
 		src/utils/utils.c \
 		src/gnl/gnl_here_doc.c \
 		src/gnl/gnl_utils.c \
