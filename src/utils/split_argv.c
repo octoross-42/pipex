@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 03:35:04 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/22 11:37:32 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:46:13 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,19 @@
 // 	}
 // 	return (splited);
 // }
+
+void	ft_update_nests(char c, int *nest_one, int *nest_two)
+{
+	if (c == '\'' && !(*nest_one) && (*nest_two < 0))
+		(*nest_one) ++;
+	else if (c == '\'')
+		(*nest_one) --;
+	else if (c == '"' && !(*nest_two))
+		(*nest_two) ++;
+	else if (c == '"')
+		(*nest_two) --;
+}
+
 size_t	ft_nbr_words(char const *s)
 {
 	size_t	nbr_words;
@@ -94,18 +107,8 @@ size_t	ft_nbr_words(char const *s)
 	while (s[i])
 	{
 		nbr_words ++;
-		while (s[i] && s[i] != ' ' && !nest_one && !nest_two)
-		{
-			if (s[i] == '\'' && !nest_one)
-				nest_one ++;
-			else if (s[i] == '\'')
-				nest_one --;
-			else if (s[i] == '"' && !nest_two)
-				nest_two ++;
-			else if (s[i] == '"')
-				nest_two --;
-			i ++;
-		}
+		while (s[i] && (s[i] != ' ' || nest_one || nest_two))
+			ft_update_nests(s[i ++], &nest_one, &nest_two);
 		while (s[i] && s[i] == ' ')
 			i ++;
 	}
@@ -119,31 +122,48 @@ char	*ft_next_word(const char *s, size_t *i)
 	int		nest_one;
 	int		nest_two;
 
+	nest_one = 0;
+	nest_two = 0;
 	len = 0;
-	while (s[*i + len] && s[*i + len] != ' ')
-		len ++;
+	while (s[*i + len] && (s[*i + len] != ' ') || (nest_one > 0) || (nest_two > 0))
+	{
+		if ((s[*i + len] == '\'' || s[*i + len] == '"') && (len == 0 || s[*]))
+			len -= 2;
+		ft_update_nests(s[*i + (len ++)], &nest_one, &nest_two);
+	}
 	word = (char *)malloc(sizeof(char) * (len + 1));
 	if (!word)
 		return (0);
 	word[len] = '\0';
 	len = 0;
-	while (s[i] && s[i] != ' ' && !nest_one && !nest_two)
+	nest_one = 0;
+	nest_two = 0;
+	while (s[*i] && (s[*i] != ' ' || nest_one || nest_two))
 	{
-		if (s[i] == '\'' && !nest_one)
-			nest_one ++;
-		else if (s[i] == '\'')
-			nest_one --;
-		else if (s[i] == '"' && !nest_two)
-			nest_two ++;
-		else if (s[i] == '"')
-			nest_two --;
-		i ++;
+		if ()
+		word[len ++] = s[*i];
+		ft_update_nests(s[(*i)++], &nest_one, &nest_two);
 	}
-	while (s[*i] && s[*i] != ' ')
-		word[len++] = s[(*i)++];
 	while (s[*i] && s[*i] == ' ')
 		(*i)++;
 	return (word);
+}
+
+void	ft_free_until(void **tab, int index)
+{
+	int		i;
+	char	**strs;
+
+	i = 0;
+	while (i < index)
+		free(tab[i ++]);
+	if (index < 0)
+	{
+		strs = (char **)tab;
+		while (strs[i])
+			free(strs[i ++]);
+	}
+	free(tab);
 }
 
 char	**ft_split_argv(char const *s)
@@ -172,6 +192,8 @@ char	**ft_split_argv(char const *s)
 	}
 	return (splited);
 }
+#include <stdio.h>
+
 
 int	main(int argc, char **argv)
 {
@@ -185,7 +207,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (splited[i])
 	{
-		printf("i : '%s'\n", splited[i]);
+		printf("%d : '%s'\n", i, splited[i]);
 		free(splited[i]);
 		i ++;
 	}
