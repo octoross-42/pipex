@@ -6,30 +6,37 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 03:35:04 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/22 20:01:42 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/22 21:16:21 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-static void	ft_update_nests(char c, int *nest_one, int *nest_two)
+static void	ft_update_nests(char const *s, int *nest_one, int *nest_two)
 {
+	int	i;
+
 	if (*nest_one >= 0)
 	{
-		if (c == '\'' && *nest_one > 0)
+		if (s[0] == '\'' && *nest_one > 0)
 			(*nest_one)--;
 	}
 	else if (*nest_two >= 0)
 	{
-		if (c == '"' && *nest_two > 0)
+		if (s[0] == '"' && *nest_two > 0)
 			(*nest_two)--;
 	}
-	else
+	else if (s[0] == '\'' || s[0] == '"')
 	{
-		if (c == '\'')
-			*nest_one = 1;
-		else if (c == '"')
-			*nest_two = 1;
+		i = 0;
+		while (s[i] && (*nest_one < 0) && (*nest_two < 0))
+		{
+			if (s[i] == '\'' && s[0] == '\'')
+				*nest_one = 1;
+			else if (s[i] == '"' && s[0] == '"')
+				*nest_two = 1;
+			i ++;
+		}
 	}
 }
 
@@ -50,7 +57,7 @@ static int	ft_nbr_words(char const *s)
 	{
 		nbr_words ++;
 		while (s[i] && (s[i] != ' ' || (nest_one > 0) || (nest_two > 0)))
-			ft_update_nests(s[i ++], &nest_one, &nest_two);
+			ft_update_nests(&s[i ++], &nest_one, &nest_two);
 		while (s[i] && s[i] == ' ')
 			i ++;
 	}
@@ -71,7 +78,7 @@ static int	ft_len_word(const char *s)
 	while (s[j] && ((s[j] != ' ')
 			|| (nest_one > 0) || (nest_two > 0)))
 	{
-		ft_update_nests(s[j], &nest_one, &nest_two);
+		ft_update_nests(&s[j], &nest_one, &nest_two);
 		if (!((s[j] == '\'' && (nest_one >= 0))
 				|| (s[j] == '"' && (nest_two >= 0))))
 			len ++;
@@ -97,7 +104,7 @@ static char	*ft_next_word(const char *s, int *i)
 	nest_two = -1;
 	while (s[*i] && (s[*i] != ' ' || (nest_one > 0) || (nest_two > 0)))
 	{
-		ft_update_nests(s[*i], &nest_one, &nest_two);
+		ft_update_nests(&s[*i], &nest_one, &nest_two);
 		if (!((s[*i] == '\'' && (nest_one >= 0))
 				|| (s[*i] == '"' && (nest_two >= 0))))
 			word[len ++] = s[*i];
