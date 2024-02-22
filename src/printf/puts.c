@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:41:03 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/02 22:58:24 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:00:21 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,25 @@ int	ft_putposnbr(int fd, unsigned long n, int uppercase, unsigned long base)
 	return (len);
 }
 
-int	ft_putnbr(int fd, long long n, int uppercase, unsigned long base, int p)
+int	ft_putnbr(int fd, long long n, t_printfp params)
 {
 	int				len;
 	unsigned long	l;
 
-	if (p && n == 0)
+	if (params.pointeur && n == 0)
 		return (write(fd, "(nil)", 5));
 	l = n;
 	len = 0;
-	if (p)
+	if (params.pointeur)
 		len += write(fd, "0x", 2);
-	if (n < 0 && base == 10)
+	if (n < 0 && params.base == 10)
 	{
 		len += write(fd, "-", 1);
 		l = -n;
 	}
-	if (p)
+	if (params.pointeur)
 		l = (unsigned long)n;
-	else if (base == 16)
+	else if (params.base == 16)
 		l = (unsigned long)((unsigned int)n);
-	return (len + (ft_putposnbr(fd, l, uppercase, base)));
+	return (len + (ft_putposnbr(fd, l, params.uppercase, params.base)));
 }

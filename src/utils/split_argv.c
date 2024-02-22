@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 03:35:04 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/22 17:06:52 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:01:42 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static void	ft_update_nests(char c, int *nest_one, int *nest_two)
 	if (*nest_one >= 0)
 	{
 		if (c == '\'' && *nest_one > 0)
-			*nest_one --;
+			(*nest_one)--;
 	}
 	else if (*nest_two >= 0)
 	{
 		if (c == '"' && *nest_two > 0)
-			*nest_two --;
+			(*nest_two)--;
 	}
 	else
 	{

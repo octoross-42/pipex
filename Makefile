@@ -1,6 +1,9 @@
 NAME = pipex
 
 SRCS = src/pipex.c \
+		src/pipex/infile_outfile.c \
+		src/pipex/parsing.c \
+		src/pipex/pipes.c \
 		src/utils/split_argv.c \
 		src/utils/split.c \
 		src/utils/utils.c \
@@ -8,7 +11,6 @@ SRCS = src/pipex.c \
 		src/gnl/gnl_utils.c \
 		src/printf/printf.c \
 		src/printf/puts.c \
-		src/printf/printf_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -19,11 +21,10 @@ all: $(NAME)
 bonus: $(NAME)
 
 %.o: %.c
-	$(CC) -g3 -Iinclude -c $< -o $@
+	$(CC) $(CFLAGS) -g3 -Iinclude -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(OBJS)
-	# ajouter cflags aussi au %.c 
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 clean:
 	rm -f $(OBJS)

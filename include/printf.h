@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:18:02 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/21 17:51:34 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:00:28 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 
 # define PRINTF_H
 
+# include "utils.h"
 # include <stdio.h>
-# include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
-# include <limits.h>
 
-size_t	ft_strlen(char *s);
-int		ft_strcmp(const char *s1, char *s2);
-int		ft_putnbr(int fd, long long n, int uppercase, unsigned long base, int p);
+typedef struct s_printfp
+{
+	int				uppercase;
+	unsigned long	base;
+	int				pointeur;
+}	t_printfp;
+
+int		ft_putnbr(int fd, long long n, t_printfp params);
 int		ft_putstr(int fd, char *s);
 int		ft_putchar(int fd, char c);
 

@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:21:22 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/02 22:58:20 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:01:16 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ static int	ft_error_format(const char *format)
 	return (0);
 }
 
+static t_printfp	ft_params(int uppercase, unsigned long base, int pointeur)
+{
+	t_printfp	params;
+
+	params.uppercase = uppercase;
+	params.base = base;
+	params.base = pointeur;
+	return (params);
+}
+
 static int	ft_format(int fd, char c, va_list *ap, int *i)
 {
 	if (c == 'c')
@@ -44,17 +54,17 @@ static int	ft_format(int fd, char c, va_list *ap, int *i)
 	else if (c == 's')
 		return (ft_putstr(fd, va_arg(*ap, char *)));
 	else if (c == 'p')
-		return (ft_putnbr(fd, va_arg(*ap, unsigned long), 0, 16, 1));
+		return (ft_putnbr(fd, va_arg(*ap, unsigned long), ft_params(0, 16, 1)));
 	else if (c == 'd')
-		return (ft_putnbr(fd, va_arg(*ap, int), 0, 10, 0));
+		return (ft_putnbr(fd, va_arg(*ap, int), ft_params(0, 10, 0)));
 	else if (c == 'i')
-		return (ft_putnbr(fd, va_arg(*ap, int), 0, 10, 0));
+		return (ft_putnbr(fd, va_arg(*ap, int), ft_params(0, 10, 0)));
 	else if (c == 'u')
-		return (ft_putnbr(fd, va_arg(*ap, unsigned int), 0, 10, 0));
+		return (ft_putnbr(fd, va_arg(*ap, unsigned int), ft_params(0, 10, 0)));
 	else if (c == 'x')
-		return (ft_putnbr(fd, va_arg(*ap, int), 0, 16, 0));
+		return (ft_putnbr(fd, va_arg(*ap, int), ft_params(0, 16, 0)));
 	else if (c == 'X')
-		return (ft_putnbr(fd, va_arg(*ap, int), 1, 16, 0));
+		return (ft_putnbr(fd, va_arg(*ap, int), ft_params(1, 16, 0)));
 	else if (c == '%')
 		return (ft_putchar(fd, '%'));
 	else
