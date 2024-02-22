@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 03:35:04 by octoross          #+#    #+#             */
-/*   Updated: 2024/02/22 12:46:13 by octoross         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:25:09 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@
 
 void	ft_update_nests(char c, int *nest_one, int *nest_two)
 {
+	if (*nest_one >= 0)
+	{
+		
+	}
 	if (c == '\'' && !(*nest_one) && (*nest_two < 0))
 		(*nest_one) ++;
 	else if (c == '\'')
@@ -99,8 +103,8 @@ size_t	ft_nbr_words(char const *s)
 	int		nest_two;
 
 	nbr_words = 0;
-	nest_one = 0;
-	nest_two = 0;
+	nest_one = -1;
+	nest_two = -1;
 	i = 0;
 	while (s[i] && s[i] == ' ')
 		i ++;
@@ -122,13 +126,11 @@ char	*ft_next_word(const char *s, size_t *i)
 	int		nest_one;
 	int		nest_two;
 
-	nest_one = 0;
-	nest_two = 0;
+	nest_one = -1;
+	nest_two = -1;
 	len = 0;
 	while (s[*i + len] && (s[*i + len] != ' ') || (nest_one > 0) || (nest_two > 0))
 	{
-		if ((s[*i + len] == '\'' || s[*i + len] == '"') && (len == 0 || s[*]))
-			len -= 2;
 		ft_update_nests(s[*i + (len ++)], &nest_one, &nest_two);
 	}
 	word = (char *)malloc(sizeof(char) * (len + 1));
